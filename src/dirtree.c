@@ -21,7 +21,7 @@
  */
 
 
-#include "common.h"
+#include "window.h"
 #include "dirtree.h"
 
 #include <gtk/gtk.h>
@@ -33,7 +33,7 @@
 #include "filelist.h"
 #include "geometry.h"
 #include "gui.h"
-#include "window.h"
+
 
 /* Mini collapsed/expanded directory icon XPM's */
 #define mini_folder_xpm mini_folder_closed_xpm

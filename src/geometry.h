@@ -48,6 +48,7 @@ struct _DiscVGeomParams {
 	double	radius;	/* Radius of node disc */
 	double	theta;	/* Angle position on parent disc */
 	XYvec	pos;	/* Center of disc w.r.t. center of parent (derived) */
+	XYvec	center;	/* multipled by directory deployment of parent (derived) */
 };
 
 /* Geometry parameters for a node in MapV mode */

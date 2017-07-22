@@ -21,7 +21,7 @@
  */
 
 
-#include "common.h"
+#include "window.h"
 #include "about.h"
 
 #include <GL/gl.h>
@@ -195,7 +195,7 @@ about_progress_cb( Morph *unused )
 
 
 /* Control routine */
-boolean
+gboolean
 about( AboutMesg mesg )
 {
 	switch (mesg) {

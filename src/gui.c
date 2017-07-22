@@ -21,7 +21,7 @@
  */
 
 
-#include "common.h"
+#include "window.h"
 #include <gtk/gtk.h>
 #include "gui.h"
 
@@ -498,7 +498,7 @@ gui_dateedit_add( GtkWidget *parent_w, time_t the_time, void (*callback)( ), voi
 time_t
 gui_dateedit_get_time( GtkWidget *dateedit_w )
 {
-	//return gnome_date_edit_get_date( GNOME_DATE_EDIT(dateedit_w) );
+	/*return gnome_date_edit_get_date( GNOME_DATE_EDIT(dateedit_w) );*/
 	return 0;
 }
 
@@ -507,7 +507,8 @@ gui_dateedit_get_time( GtkWidget *dateedit_w )
 void
 gui_dateedit_set_time( GtkWidget *dateedit_w, time_t the_time )
 {
-	//gnome_date_edit_set_time( GNOME_DATE_EDIT(dateedit_w), the_time );
+	
+	/*gnome_date_edit_set_time( GNOME_DATE_EDIT(dateedit_w), the_time );*/
 }
 
 

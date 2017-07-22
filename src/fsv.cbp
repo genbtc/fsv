@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="fsvwin" />
+		<Option pch_mode="2" />
+		<Option compiler="gC" />
+		<Build>
+			<Target title="Release">
+				<Option output="bin/Release/fsvwin" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="bin/Release/" />
+				<Option object_output="obj/Release/" />
+				<Option type="0" />
+				<Option compiler="msys32_copy_of_gnu_gcc_compiler" />
+				<Compiler>
+					<Add option="-march=prescott" />
+					<Add option="-fexpensive-optimizations" />
+					<Add option="-O3" />
+					<Add option="-Wmissing-include-dirs" />
+					<Add option="-Wfatal-errors" />
+					<Add option="-Wextra" />
+					<Add option='-DLOCALEDIR=\&quot;$(localedir)\&quot;' />
+					<Add option='-DDOCDIR=\&quot;$(docdir)\&quot;' />
+					<Add option="-DUSE_WIN32" />
+					<Add directory="C:/Software/msys32/mingw32/include" />
+					<Add directory="C:/Software/msys32/mingw32/i686-w64-mingw32/include" />
+					<Add directory="C:/Software/msys32/mingw32/include/glib-2.0" />
+					<Add directory="C:/Software/msys32/mingw32/lib/glib-2.0/include" />
+					<Add directory="C:/Software/msys32/mingw32/include/gtk-2.0/" />
+					<Add directory="C:/Software/msys32/mingw32/lib/gtk-2.0/include" />
+					<Add directory="C:/Software/msys32/mingw32/include/gtkgl-2.0/" />
+					<Add directory="C:/Software/msys32/mingw32/lib/gtkglext-1.0/include" />
+					<Add directory="C:/Software/msys32/mingw32/include/gtkglext-1.0" />
+					<Add directory="C:/Software/msys32/mingw32/include/atk-1.0/" />
+					<Add directory="C:/Software/msys32/mingw32/include/cairo" />
+					<Add directory="C:/Software/msys32/mingw32/include/freetype2" />
+					<Add directory="C:/Software/msys32/mingw32/include/gdk-pixbuf-2.0" />
+					<Add directory="C:/Software/msys32/mingw32/include/pango-1.0" />
+					<Add directory="C:/Software/msys32/mingw32/include/harfbuzz" />
+					<Add directory="C:/Software/msys32/mingw32/include/libpng16" />
+					<Add directory="C:/Software/msys32/mingw32/include/pixman-1" />
+				</Compiler>
+				<Linker>
+					<Add option="-lmisc" />
+					<Add option="-Wl,-luuid" />
+					<Add option="-pthread" />
+					<Add library="freeglut" />
+					<Add library="opengl32" />
+					<Add library="glu32" />
+					<Add library="gdi32" />
+					<Add library="imm32" />
+					<Add library="kernel32" />
+					<Add library="user32" />
+					<Add library="ole32" />
+					<Add library="shell32" />
+					<Add library="winmm" />
+					<Add library="atk-1.0" />
+					<Add library="gtk-win32-2.0" />
+					<Add library="gdk-win32-2.0" />
+					<Add library="pangowin32-1.0" />
+					<Add library="pangocairo-1.0" />
+					<Add library="pango-1.0" />
+					<Add library="cairo" />
+					<Add library="gdk_pixbuf-2.0" />
+					<Add library="gmodule-2.0" />
+					<Add library="gio-2.0" />
+					<Add library="gobject-2.0" />
+					<Add library="glib-2.0" />
+					<Add library="intl" />
+					<Add library="gtkgl-2.0" />
+					<Add library="gtkglext-win32-1.0" />
+					<Add library="gdkglext-win32-1.0" />
+					<Add directory="C:/Software/msys32/mingw32/lib" />
+					<Add directory="C:/Software/msys32/mingw32/i686-w64-mingw32/lib" />
+					<Add directory="C:/Software/SGI/fsv-orig/lib" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Unit filename="../config.h" />
+		<Unit filename="../lib/getopt.h" />
+		<Unit filename="../lib/nvstore.h" />
+		<Unit filename="about.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="about.h" />
+		<Unit filename="animation.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="animation.h" />
+		<Unit filename="callbacks.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="callbacks.h" />
+		<Unit filename="camera.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="camera.h" />
+		<Unit filename="colexp.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="colexp.h" />
+		<Unit filename="color.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="color.h" />
+		<Unit filename="common.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="common.h" />
+		<Unit filename="dialog.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="dialog.h" />
+		<Unit filename="dirtree.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="dirtree.h" />
+		<Unit filename="filelist.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="filelist.h" />
+		<Unit filename="fnmatch.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="fnmatch.h" />
+		<Unit filename="fsv.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="fsv.h" />
+		<Unit filename="fsv3d.h" />
+		<Unit filename="geometry.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="geometry.h" />
+		<Unit filename="grp.h" />
+		<Unit filename="gui.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="gui.h" />
+		<Unit filename="ogl.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ogl.h" />
+		<Unit filename="pwd.h" />
+		<Unit filename="scanfs.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="scanfs.h" />
+		<Unit filename="tmaptext.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="tmaptext.h" />
+		<Unit filename="viewport.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="viewport.h" />
+		<Unit filename="window.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="window.h" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

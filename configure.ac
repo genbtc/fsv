@@ -1,14 +1,9 @@
 # Process this file with autoconf to produce a configure script.
-AC_INIT(src/fsv.c)
-AM_CONFIG_HEADER(config.h)
-
-PACKAGE=fsv
-VERSION=0.9
-RELEASE=1
-
+AC_INIT([fsv], [1.0])
+AC_CONFIG_SRCDIR([src/fsv.c])
+AM_INIT_AUTOMAKE
+AM_CONFIG_HEADER([config.h])
 AC_USE_SYSTEM_EXTENSIONS
-AM_INIT_AUTOMAKE($PACKAGE, $VERSION)
-AC_SUBST(RELEASE)
 
 AC_DEFINE(_GNU_SOURCE)
 AC_DEFINE(GTK_DISABLE_COMPAT_H)
@@ -84,61 +79,54 @@ else
 fi
 AC_SUBST(docdir)
 
-# GTK+ libraries
-PKG_CHECK_MODULES([GTK], [gtk+-2.0])
-PKG_CHECK_MODULES([GLIB], [glib-2.0])
+dnl
+dnl  Check for the operating system
+dnl
+AC_MSG_CHECKING([for Win32])
+case "$host" in
+  *mingw* | pw32* | *cygwin*)
+    native_win32=yes
+    ;;
+  *)
+    native_win32=no
+    ;;
+esac
+AC_MSG_RESULT([$native_win32])
+AM_CONDITIONAL(OS_WIN32, test "$native_win32" = "yes")
 
-#### OpenGL/Mesa3D libraries ####
-AC_ARG_WITH(GL-prefix,  [  --with-GL-prefix=PFX    Prefix where GL/MesaGL is installed (optional)])
-AC_ARG_WITH(lib-GL,     [  --with-lib-GL           use '-lGL' (default)])
-AC_ARG_WITH(lib-MesaGL, [  --with-lib-MesaGL       use '-lMesaGL'])
+if test "$native_win32" = "yes"; then
+  AC_CHECK_PROG(ms_librarian, lib.exe, yes, no)
+fi
+AM_CONDITIONAL(MS_LIB_AVAILABLE, test x$ms_librarian = xyes)
 
-if test -n "$with_GL_prefix" ; then
-	GL_CFLAGS=-I$with_GL_prefix/include
-	GL_LDOPTS=-L$with_GL_prefix/lib
-else
-	GL_CFLAGS=""
-	GL_LDOPTS=""
+dnl
+dnl  Check for GTK libraries
+dnl
+GTK_REQUIRED_VERSION=2.0.0
+PKG_CHECK_MODULES(GTK, gtk+-2.0 >= $GTK_REQUIRED_VERSION gmodule-2.0 >= $GTK_REQUIRED_VERSION gobject-2.0 >= $GTK_REQUIRED_VERSION gio-2.0 >= $GTK_REQUIRED_VERSION)
+PKG_CHECK_MODULES([GTKGL], [gtkgl-2.0 gtkglext-1.0 gtkglext-win32-1.0])
+
+AC_SUBST(GTK_CFLAGS)
+AC_SUBST(GTK_LIBS)
+
+CFLAGS="$CFLAGS $GTK_CFLAGS $GTKGL_CFLAGS"
+LIBS="-lfreeglut -lopengl32 -lglu32 -lwinmm -lgdi32 -latk-1.0 $GTK_LIBS $GTKGL_LIBS"
+AC_SUBST(CFLAGS)
+AC_SUBST(LIBS)
+
+dnl
+dnl  Check for the windowing system (X11 or Win32)
+dnl
+gdk_target=`$PKG_CONFIG --variable=target gtk+-2.0`
+if test "$gdk_target" = "win32"; then
+  AC_DEFINE(USE_WIN32, 1, Define to 1 if the windowing system is Windows.)
 fi
 
-AC_CHECK_LIB(MesaGL, glBegin, have_MesaGL=yes, , $GTK_LIBS $GL_LDOPTS)
-AC_CHECK_HEADER(GL/glu.h, have_GLU="yes", have_GLU="no")
-AC_CHECK_LIB(GL,     glBegin, have_GL=yes,     , $GTK_LIBS $GL_LDOPTS)
+dnl Checks for header files.
+AC_HEADER_STDC
 
-if test "$have_GLU" = "no" ; then
-                AC_MSG_ERROR([Missing OpenGL utility library])
-        fi
-
-if test "$with_lib_GL" = "yes" ; then
-	# Want to use '-lGL'
-	if test "$have_GL" = "yes" ; then
-		GL_LIBS="$GL_LDOPTS -lGL -lGLU"
-	else
-		AC_MSG_ERROR([Missing GL library])
-	fi
-elif test "$with_lib_MesaGL" = "yes" ; then
-	# Want to use '-lMesaGL'
-	if test "$have_MesaGL" = "yes" ; then
-		GL_LIBS="$GL_LDOPTS -lMesaGL -lMesaGLU"
-	else
-		AC_MSG_ERROR([Missing Mesa3D library])
-	fi
-else
-	# Use whatever is available, preferably '-lGL'
-	if test "$have_GL" = "yes" ; then
-		GL_LIBS="$GL_LDOPTS -lGL -lGLU"
-	elif test "$have_MesaGL" = "yes" ; then
-		GL_LIBS="$GL_LDOPTS -lMesaGL -lMesaGLU"
-	else
-		AC_MSG_ERROR([You need GL or MesaGL libraries])
-	fi
-fi
-AC_SUBST(GL_CFLAGS)
-AC_SUBST(GL_LIBS)
-#### end of OpenGL/Mesa3D configuration ####
-
-#### GtkGLArea library ####
-PKG_CHECK_MODULES([GTKGL], [gtkgl-2.0])
+dnl Checks for typedefs, structures, and compiler characteristics.
+AC_C_CONST
 
 # Check for 'file' command
 AC_PATH_PROG(FILE_CMD, file)
@@ -148,11 +136,29 @@ if test -n "$FILE_CMD" ; then
 fi
 
 # That's a wrap!
-AC_OUTPUT(fsv.spec
+AC_CONFIG_FILES([fsv.spec
 	Makefile
 	debug/Makefile
 	doc/Makefile
 	intl/Makefile
 	lib/Makefile
 	po/Makefile.in
-	src/Makefile)
+	src/Makefile])
+AC_OUTPUT
+
+echo "---"
+echo "Configuration summary"
+echo ""
+echo "   * Installation prefix: $prefix"
+echo "   * Win32:               $native_win32"
+echo "   * gdk_target:          $gdk_target"
+echo ""
+echo "---"
+echo "   * path:    $(MSYSTEM_PREFIX)/$(MSYSTEM_CHOST)"
+echo "   * CFLAGS:              $CFLAGS"
+echo "   * LIBS:              $LIBS"
+echo ""
+echo "---"
+echo "   * configure has Completed!"
+echo "   * Almost done, now its time to run: make"
+echo "---"

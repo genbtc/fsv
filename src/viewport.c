@@ -21,7 +21,7 @@
  */
 
 
-#include "common.h"
+#include "window.h"
 #include "viewport.h"
 
 #include <gtk/gtk.h>
@@ -34,7 +34,6 @@
 #include "geometry.h"
 #include "gui.h"
 #include "ogl.h"
-#include "window.h"
 
 
 /* Sensitivity factor used for manual camera control */

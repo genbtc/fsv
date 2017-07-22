@@ -21,7 +21,7 @@
  */
 
 
-#include "common.h"
+#include "window.h"
 #include "tmaptext.h"
 
 #include <GL/gl.h>

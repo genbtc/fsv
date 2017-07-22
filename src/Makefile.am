@@ -6,36 +6,40 @@ DEBUG_CFLAGS =
 DEBUG_LIBS =
 endif
 
-INCLUDES = \
+AM_CPPFLAGS = \
 	-DLOCALEDIR=\"$(localedir)\" \
 	-DDOCDIR=\"$(docdir)\" \
 	-I$(top_srcdir)/lib \
-	$(DEBUG_CFLAGS) \
-	@GTK_CFLAGS@ \
-	@GTKGL_CFLAGS@ \
-	@GL_CFLAGS@
+    -pthread -mms-bitfields \
+    -I$(MSYSTEM_PREFIX)/include \
+    -I$(MSYSTEM_PREFIX)/$(MSYSTEM_CHOST)/include
 
 bin_PROGRAMS = fsv
+
 noinst_HEADERS = \
-	about.h \
-	animation.h \
-	callbacks.h \
-	camera.h \
-	colexp.h \
-	color.h \
-	common.h \
-	dialog.h \
-	dirtree.h \
-	filelist.h \
-	fsv.h \
-	fsv3d.h \
-	geometry.h \
-	gui.h \
-	ogl.h \
-	scanfs.h \
-	tmaptext.h \
-	viewport.h \
-	window.h
+    about.h     \
+    animation.h \
+    callbacks.h \
+    camera.h    \
+    colexp.h    \
+    color.h     \
+    common.h    \
+    dialog.h    \
+    dirtree.h   \
+    filelist.h  \
+    fnmatch.h \
+    fsv.h       \
+    fsv3d.h     \
+    geometry.h  \
+    grp.h     \
+    gui.h       \
+    fnmatch.h \
+    ogl.h       \
+    pwd.h     \
+    scanfs.h    \
+    tmaptext.h  \
+    viewport.h  \
+    window.h 
 
 fsv_SOURCES = \
 	about.c \
@@ -48,6 +52,7 @@ fsv_SOURCES = \
 	dialog.c \
 	dirtree.c \
 	filelist.c \
+    fnmatch.c \
 	fsv.c \
 	geometry.c \
 	gui.c \
@@ -60,9 +65,8 @@ fsv_SOURCES = \
 fsv_LDADD = \
 	$(DEBUG_LIBS) \
 	$(top_builddir)/lib/libmisc.a \
-	@GTKGL_LIBS@ \
-	@GL_LIBS@ \
-	@GTK_LIBS@
+    -L$(MSYSTEM_PREFIX)/lib \
+    -L$(MSYSTEM_PREFIX)/$(MSYSTEM_CHOST)/lib
 
 EXTRA_DIST = \
 	xmaps/back.xpm \

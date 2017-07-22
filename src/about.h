@@ -26,7 +26,6 @@
 #endif
 #define FSV_ABOUT_H
 
-
 typedef enum {
 	ABOUT_BEGIN,
 	ABOUT_END,
@@ -35,7 +34,7 @@ typedef enum {
 } AboutMesg;
 
 
-boolean about( AboutMesg mesg );
+gboolean about( AboutMesg mesg );
 
 
 /* end about.h */

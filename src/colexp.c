@@ -21,7 +21,7 @@
  */
 
 
-#include "common.h"
+#include "window.h"
 #include "colexp.h"
 
 #include "animation.h"

@@ -21,8 +21,8 @@
  */
 
 
-#include "common.h"
 #include "dialog.h"
+#include "window.h"
 
 #include <time.h>
 #include <unistd.h>
@@ -36,7 +36,7 @@
 #include "filelist.h" /* dir_contents_list_add( ) */
 #include "fsv.h"
 #include "gui.h"
-#include "window.h"
+
 
 /* OK/Cancel button XPM's */
 #include "xmaps/button_ok.xpm"
@@ -1257,12 +1257,17 @@ dialog_node_properties( GNode *node )
 	}
 	else {
 		/* Size */
-		sprintf( strbuf, _("%s bytes"), node_info->size );
-		STRRECAT(proptext, strbuf);
 		if (NODE_DESC(node)->size >= 1024) {
-			sprintf( strbuf, " (%s)", node_info->size_abbr );
+			sprintf( strbuf, "%s", node_info->size_abbr );
 			STRRECAT(proptext, strbuf);
+			sprintf( strbuf, _(" (%s bytes) "), node_info->size );
 		}
+		else {
+			sprintf( strbuf, _("%s bytes"), node_info->size );
+		}
+		
+		STRRECAT(proptext, strbuf);
+		
 		STRRECAT(proptext, "\n");
 		/* Allocation */
 		sprintf( strbuf, _("%s bytes"), node_info->size_alloc );
@@ -1287,8 +1292,8 @@ dialog_node_properties( GNode *node )
 
 	/* Labels for date/time stamps */
 	strcpy( strbuf, "" );
-	strcat( strbuf, _("Modified:\n") );
-	strcat( strbuf, _("AttribCh:\n") );
+	strcat( strbuf, _("Created:\n") );
+	strcat( strbuf, _("Modified:\n") );	
 	strcat( strbuf, _("Accessed:") );
 	hbox_w = gui_hbox_add( NULL, 8 );
 	label_w = gui_label_add( hbox_w, strbuf );
@@ -1298,11 +1303,11 @@ dialog_node_properties( GNode *node )
 
 	/* Date/time stamps */
 	strcpy( proptext, "" );
+	/* WinCreated/attributes changed */
+	STRRECAT(proptext, node_info->ctime);
+	STRRECAT(proptext, "\n");	
 	/* Modified */
 	STRRECAT(proptext, node_info->mtime);
-	STRRECAT(proptext, "\n");
-	/* Attributes changed */
-	STRRECAT(proptext, node_info->ctime);
 	STRRECAT(proptext, "\n");
 	/* Accessed */
 	STRRECAT(proptext, node_info->atime);

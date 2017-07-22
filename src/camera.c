@@ -21,7 +21,7 @@
  */
 
 
-#include "common.h"
+#include "window.h"
 #include "camera.h"
 
 #include <gtk/gtk.h>
@@ -31,7 +31,7 @@
 #include "filelist.h"
 #include "geometry.h"
 #include "gui.h"
-#include "window.h"
+
 
 
 /* Lower/upper bounds on pan times (in seconds) */

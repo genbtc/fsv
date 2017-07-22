@@ -33,15 +33,13 @@
 /**** Headers ****************/
 
 /* Autoconf */
-#include "config.h"
+#include "../config.h"
 
 /* System stuff */
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
-#include <sys/types.h>
-
 /* GLib */
 #include <glib.h>
 
@@ -129,7 +127,8 @@
 typedef gint64 int64;
 typedef unsigned int bitfield;
 typedef guint8 byte;
-typedef gboolean boolean;
+/*typedef gboolean boolean;*/
+typedef unsigned char boolean;
 
 /* Program modes */
 typedef enum {
@@ -286,7 +285,7 @@ struct Globals {
 	GList *history;
 
 	/* TRUE when viewport needs to be redrawn */
-	boolean need_redraw;
+	gboolean need_redraw;
 };
 
 
@@ -310,7 +309,7 @@ void xfree( void *block );
 #endif /* not DEBUG */
 char *strrecat( char *string, const char *add_string );
 char *xstrstrip( char *string );
-boolean xfork( void);
+gboolean xfork( void);
 const char *xgetcwd( void);
 double xgettime( void);
 const char *i64toa( int64 number );

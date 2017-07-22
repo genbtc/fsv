@@ -1,0 +1,4 @@
+PATH=C:/Software/msys32/mingw32/bin;./;
+start fsv.exe
+
+rem   C:/Software/msys32/usr/local/bin;C:/Software/msys32/usr/bin;C:/Software/msys32/bin;c:/Windows/System32;C:/Windows;c:/Windows/System32/Wbem;c:/Windows/System32/WindowsPowerShell/v1.0/;./;              THIS IS THE REST OF THE PATH MSYS2 ADDS, BUT ITS NOT STRICTLY NECESSARY FOR US

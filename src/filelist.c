@@ -21,7 +21,7 @@
  */
 
 
-#include "common.h"
+#include "window.h"
 #include "filelist.h"
 
 #include <gtk/gtk.h>
@@ -32,7 +32,7 @@
 #include "dirtree.h"
 #include "geometry.h"
 #include "gui.h"
-#include "window.h"
+
 
 
 /* Time for the filelist to scroll to a given entry (in seconds) */

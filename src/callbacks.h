@@ -26,6 +26,10 @@ on_vis_treev_activate                  (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
 
 void
+on_vis_discv_activate                  (GtkMenuItem     *menuitem,
+                                        gpointer         user_data);
+                                        
+void
 on_color_by_nodetype_activate         (GtkMenuItem     *menuitem,
                                         gpointer         user_data);
 

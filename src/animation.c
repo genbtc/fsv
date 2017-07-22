@@ -21,7 +21,7 @@
  */
 
 
-#include "common.h"
+#include "window.h"
 #include "animation.h"
 
 #include <gtk/gtk.h>

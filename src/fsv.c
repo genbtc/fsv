@@ -23,11 +23,11 @@
  */
 
 
-#include "common.h"
+#include "window.h"
 #include "fsv.h"
 
 #include <gtk/gtk.h>
-#include <gtkgl/gdkgl.h>
+#include <gdk/gdkgl.h>
 #include "getopt.h"
 
 #include "about.h"
@@ -38,7 +38,7 @@
 #include "geometry.h"
 #include "gui.h" /* gui_update( ) */
 #include "scanfs.h"
-#include "window.h"
+
 
 
 /* Identifiers for command-line options */
@@ -53,7 +53,7 @@ enum {
 
 
 /* Initial visualization mode */
-static FsvMode initial_fsv_mode = FSV_MAPV;
+static FsvMode initial_fsv_mode = FSV_DISCV;
 
 /* Command-line options */
 static struct option cli_opts[] = {
@@ -71,6 +71,7 @@ static const char usage_summary[] = __("\n"
     "fsv - 3D File System Visualizer\n"
     "      Version " VERSION "\n"
     "Copyright (C)1999 Daniel Richard G. <skunk@mit.edu>\n"
+	"Edited by genBTC 2017\n"
     "\n"
     "Usage: %s [rootdir] [options]\n"
     "  rootdir      Root directory for visualization\n"
@@ -300,7 +301,7 @@ main( int argc, char **argv )
 	gtk_init( &argc, &argv );
 
 	/* Check for OpenGL support */
-	if (!gdk_gl_query( ))
+	if (!gdk_gl_query_extension( ))
 		quit( _("fsv requires OpenGL support.") );
 
 	window_init( initial_fsv_mode );

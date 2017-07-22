@@ -21,7 +21,7 @@
  */
 
 
-#include "common.h"
+#include "window.h"
 #include "geometry.h"
 
 #include <GL/gl.h>
@@ -319,8 +319,20 @@ discv_build_dir( GNode *dnode )
 static void
 discv_apply_label( GNode *node )
 {
-	node = node;
+	XYZvec label_pos;
+	XYvec leaf_label_dims;
+	DiscVGeomParams *gparams;
 
+	gparams = DISCV_GEOM_PARAMS(node);
+	if (NODE_IS_DIR(node))
+		leaf_label_dims.x = (1.625 * gparams->radius);
+	else
+		leaf_label_dims.x = (1.75 * gparams->radius);
+	leaf_label_dims.y = (2.0 * gparams->radius);
+	label_pos.x = gparams->pos.x;
+	label_pos.y = gparams->pos.y;
+	label_pos.z = 0.5;
+	text_draw_straight( NODE_DESC(node)->name, &label_pos, &leaf_label_dims );
 }
 
 

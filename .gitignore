@@ -27,4 +27,6 @@ stamp-h1
 lib/*.o
 lib/*.a
 src/*.o
+src/obj/Release/src/*.o
 src/fsv
+

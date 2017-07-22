@@ -25,21 +25,31 @@
 	#error
 #endif
 #define FSV_WINDOW_H
-
-
-typedef enum {
-	SB_LEFT,
-	SB_RIGHT
-} StatusBarID;
-
-
+#include "common.h"
+enum {
+    SB_LINEUP       = 0,
+    SB_LINELEFT     = 0,
+    SB_LINEDOWN     = 1,
+    SB_LINERIGHT    = 1,
+    SB_PAGEUP       = 2,
+    SB_PAGELEFT     = 2,
+    SB_PAGEDOWN     = 3,
+    SB_PAGERIGHT    = 3,
+    SB_THUMBPOSITION    = 4,
+    SB_THUMBTRACK       = 5,
+    SB_TOP          = 6,
+    SB_LEFT         = 6,
+    SB_BOTTOM       = 7,
+    SB_RIGHT        = 7,
+    SB_ENDSCROLL    = 8
+} ScrollBarCommands;
 void window_init( FsvMode fsv_mode );
 void window_set_access( boolean enabled );
 #ifdef FSV_COLOR_H
 void window_set_color_mode( ColorMode mode );
 #endif
 void window_birdseye_view_off( void);
-void window_statusbar( StatusBarID sb_id, const char *message );
+void window_statusbar( int sb_id, const char *message );
 
 
 /* end window.h */

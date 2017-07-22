@@ -21,7 +21,7 @@
  */
 
 
-#include "common.h"
+#include "window.h"
 #include "scanfs.h"
 
 #include <dirent.h>
@@ -34,8 +34,6 @@
 #include "geometry.h" /* geometry_free( ) */
 #include "gui.h" /* gui_update( ) */
 #include "viewport.h" /* viewport_pass_node_table( ) */
-#include "window.h"
-
 
 #ifndef HAVE_SCANDIR
 int scandir( const char *dir, struct dirent ***namelist, int (*selector)( const struct dirent * ), int (*cmp)( const void *, const void * ) );
@@ -68,7 +66,7 @@ stat_node( GNode *node )
 {
 	struct stat st;
 
-	if (lstat( node_absname( node ), &st ))
+	if (stat( node_absname( node ), &st ))
 		return -1;
 
 	/* Determine node type */
@@ -76,12 +74,12 @@ stat_node( GNode *node )
 		NODE_DESC(node)->type = NODE_DIRECTORY;
 	else if (S_ISREG(st.st_mode))
 		NODE_DESC(node)->type = NODE_REGFILE;
-	else if (S_ISLNK(st.st_mode))
-		NODE_DESC(node)->type = NODE_SYMLINK;
+	// else if (S_ISLNK(st.st_mode))
+	// 	NODE_DESC(node)->type = NODE_SYMLINK;
 	else if (S_ISFIFO(st.st_mode))
 		NODE_DESC(node)->type = NODE_FIFO;
-	else if (S_ISSOCK(st.st_mode))
-		NODE_DESC(node)->type = NODE_SOCKET;
+	// else if (S_ISSOCK(st.st_mode))
+	// 	NODE_DESC(node)->type = NODE_SOCKET;
 	else if (S_ISCHR(st.st_mode))
 		NODE_DESC(node)->type = NODE_CHARDEV;
 	else if (S_ISBLK(st.st_mode))
@@ -93,7 +91,7 @@ stat_node( GNode *node )
 	g_assert( st.st_size >= 0 );
 
 	NODE_DESC(node)->size = st.st_size;
-	NODE_DESC(node)->size_alloc = 512 * st.st_blocks;
+	NODE_DESC(node)->size_alloc = 512 * st.st_nlink;
 	NODE_DESC(node)->user_id = st.st_uid;
 	NODE_DESC(node)->group_id = st.st_gid;
 	/*NODE_DESC(node)->perms = st.st_mode;*/

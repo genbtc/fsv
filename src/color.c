@@ -21,16 +21,15 @@
  */
 
 
-#include "common.h"
+#include "window.h"
 #include "color.h"
 
-#include <fnmatch.h>
+#include "fnmatch.h"
 #include <time.h>
-#include "nvstore.h"
+#include "../lib/nvstore.h"
 
 #include "animation.h" /* redraw( ) */
 #include "geometry.h"
-#include "window.h"
 
 
 /* Some fnmatch headers don't define FNM_FILE_NAME */

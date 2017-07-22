@@ -21,7 +21,7 @@
  */
 
 
-#include "common.h"
+#include "window.h"
 #include "callbacks.h"
 
 #include <gtk/gtk.h>
@@ -70,6 +70,16 @@ void
 on_file_exit_activate( GtkMenuItem *menuitem, gpointer user_data )
 {
 	exit( EXIT_SUCCESS );
+}
+
+
+/* Vis -> DiscV */
+void
+on_vis_discv_activate( GtkMenuItem *menuitem, gpointer user_data )
+{
+	IGNORE_MENU_ITEM_DESELECT(menuitem);
+	if (globals.fsv_mode != FSV_DISCV)
+		fsv_set_mode( FSV_DISCV );
 }
 
 

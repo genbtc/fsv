@@ -21,13 +21,20 @@
  */
 
 
-#include "common.h"
+#include "window.h"
 #include "ogl.h"
 
-#include <gtk/gtk.h>
-#include <gtkgl/gtkglarea.h>
 #include <GL/gl.h>
 #include <GL/glu.h> /* gluPickMatrix( ) */
+#include <GL/glext.h> /* gluPickMatrix( ) */
+#include <glib.h>
+#include <gdk/gdk.h>
+#include <gdk/gdkkeysyms.h>
+#include <gdk/gdkgltokens.h>
+#include <gtk/gtk.h>
+#include <gtk/gtkgl.h>
+#include <gtkgl/gdkgl.h>
+#include <gtkgl/gtkglarea.h>
 
 #include "animation.h" /* redraw( ) */
 #include "camera.h"

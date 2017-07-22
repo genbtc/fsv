@@ -21,10 +21,10 @@
  */
 
 
-#include "common.h"
+#include "window.h"
 
-#include <pwd.h>
-#include <grp.h>
+#include "pwd.h"
+#include "grp.h"
 #include <unistd.h>
 #include <sys/time.h>
 
@@ -235,12 +235,13 @@ xstrstrip( char *string )
 
 
 /* fork() wrapper function. Returns TRUE if in newly created subprocess */
-boolean
+gboolean
 xfork( void )
 {
 	pid_t pid;
 
-	pid = fork( );
+	/* pid = CreateProcess( ); */
+	pid=1;
 	if (pid < 0)
 		quit( "cannot fork( )" );
 
@@ -441,11 +442,11 @@ node_named( const char *absname )
 		break;
 	}
 
-	name = strtok( absname_partial_copy, delimiters );
+	name = strtok_r( absname_partial_copy, delimiters, &absname_partial_copy );
 	node = root_dnode->children;
 	while (node != NULL) {
 		if (!strcmp( name, NODE_DESC(node)->name )) {
-			name = strtok( NULL, delimiters );
+			name = strtok_r( NULL, delimiters, NULL );
 			if (name == NULL)
                                 break;
 			node = node->children;
@@ -534,7 +535,8 @@ read_symlink( const char *linkname )
 
 	for (;;) {
 		RESIZE(target, len, char);
-		n = readlink( linkname, target, len );
+		/* n = readlink( linkname, target, len ); //TODO */
+		n=1;		
 		if (n < len)
 			break;
 		len *= 2;
@@ -698,8 +700,8 @@ get_node_info( GNode *node )
 		NULL,	/* target */
 		NULL	/* abstarget */
 	};
-	struct passwd *pw;
-	struct group *gr;
+	struct passwd *pw = NULL;
+	struct group *gr = NULL;
 	static char blank[] = "-";
 	const char *absname;
 	const char *cstr;
@@ -730,14 +732,16 @@ get_node_info( GNode *node )
 	ninfo.size_alloc_abbr = xstrredup( ninfo.size_alloc_abbr, abbrev_size( NODE_DESC(node)->size_alloc ) );
 
 	/* User name */
-	pw = getpwuid( NODE_DESC(node)->user_id );
+/*TODO */
+/* 	pw = getpwuid( NODE_DESC(node)->user_id );*/
 	if (pw == NULL)
 		cstr = _("Unknown");
 	else
 		cstr = pw->pw_name;
 	ninfo.user_name = xstrredup( ninfo.user_name, cstr );
 	/* Group name */
-	gr = getgrgid( NODE_DESC(node)->group_id );
+/* TODO*/
+/* 	gr = getgrgid( NODE_DESC(node)->group_id );*/
 	if (gr == NULL)
 		cstr = _("Unknown");
 	else

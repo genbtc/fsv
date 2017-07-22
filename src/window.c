@@ -21,7 +21,6 @@
  */
 
 
-#include "common.h"
 #include "window.h"
 
 #include <gtk/gtk.h>
@@ -125,8 +124,8 @@ window_init( FsvMode fsv_mode )
 	/* Vis menu */
 	menu_w = gui_menu_add( menu_bar_w, _("Vis") );
 	/* Vis menu items */
-	gui_radio_menu_begin( fsv_mode -1 );
-#if 0 /* DiscV mode needs more work */
+	gui_radio_menu_begin( fsv_mode );
+#if 1 /* DiscV mode needs more work */
 	gui_radio_menu_item_add( menu_w, _("DiscV"), on_vis_discv_activate, NULL );
 /* Note: don't forget to remove the "-1" three lines up */
 #endif
@@ -323,7 +322,7 @@ window_birdseye_view_off( void )
 
 /* Displays a message in one of the statusbars */
 void
-window_statusbar( StatusBarID sb_id, const char *message )
+window_statusbar( int sb_id, const char *message )
 {
 	switch (sb_id) {
 		case SB_LEFT:
