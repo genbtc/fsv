@@ -23,8 +23,6 @@
 
 #include "window.h"
 
-#include "pwd.h"
-#include "grp.h"
 #include <unistd.h>
 #include <sys/time.h>
 
@@ -700,7 +698,23 @@ get_node_info( GNode *node )
 		NULL,	/* target */
 		NULL	/* abstarget */
 	};
+	struct passwd {
+		char	*pw_name;		/* user name */
+		char	*pw_passwd;		/* encrypted password */
+		uid_t	pw_uid;			/* user uid */
+		gid_t	pw_gid;			/* user gid */
+		char	*pw_comment;	/* comment */
+		char	*pw_gecos;		/* Honeywell login info */
+		char	*pw_dir;		/* home directory */
+		char	*pw_shell;		/* default shell */
+	};
 	struct passwd *pw = NULL;
+	struct group {
+		char	*gr_name;		/* group name */
+		char	*gr_passwd;		/* group password */
+		gid_t	gr_gid;			/* group id */
+		char	**gr_mem;		/* group members */
+	};	
 	struct group *gr = NULL;
 	static char blank[] = "-";
 	const char *absname;

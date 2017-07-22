@@ -31,11 +31,9 @@ noinst_HEADERS = \
     fsv.h       \
     fsv3d.h     \
     geometry.h  \
-    grp.h     \
     gui.h       \
     fnmatch.h \
     ogl.h       \
-    pwd.h     \
     scanfs.h    \
     tmaptext.h  \
     viewport.h  \
