@@ -4,24 +4,39 @@ AC_CONFIG_SRCDIR([src/fsv.c])
 AM_INIT_AUTOMAKE
 AM_CONFIG_HEADER([config.h])
 AC_USE_SYSTEM_EXTENSIONS
-
-AC_DEFINE(_GNU_SOURCE)
-AC_DEFINE(GTK_DISABLE_COMPAT_H)
-
 # Programs
 AC_PROG_CC
 AC_PROG_CPP
 AC_PROG_RANLIB
-
 AC_ISC_POSIX
 
+AC_DEFINE(_GNU_SOURCE)
+AC_DEFINE(GTK_DISABLE_COMPAT_H)
+
+dnl
+dnl  Check for the operating system
+dnl
+AC_MSG_CHECKING([for Win32])
+case "$host" in
+  *mingw* | pw32* | *cygwin*)
+    native_win32=yes
+    ;;
+  *)
+    native_win32=no
+    ;;
+esac
+AC_MSG_RESULT([$native_win32])
+AM_CONDITIONAL(OS_WIN32, test "$native_win32" = "yes")
+
 # Header files
+dnl Checks for header files.
 AC_HEADER_DIRENT
 AC_HEADER_STDC
 AC_HEADER_TIME
 AC_CHECK_HEADERS(strings.h sys/time.h unistd.h)
 
 # Typedefs, structures
+dnl Checks for typedefs, structures, and compiler characteristics.
 AC_C_CONST
 AC_TYPE_MODE_T
 AC_TYPE_UID_T
@@ -79,26 +94,7 @@ else
 fi
 AC_SUBST(docdir)
 
-dnl
-dnl  Check for the operating system
-dnl
-AC_MSG_CHECKING([for Win32])
-case "$host" in
-  *mingw* | pw32* | *cygwin*)
-    native_win32=yes
-    ;;
-  *)
-    native_win32=no
-    ;;
-esac
-AC_MSG_RESULT([$native_win32])
-AM_CONDITIONAL(OS_WIN32, test "$native_win32" = "yes")
-
-if test "$native_win32" = "yes"; then
-  AC_CHECK_PROG(ms_librarian, lib.exe, yes, no)
-fi
-AM_CONDITIONAL(MS_LIB_AVAILABLE, test x$ms_librarian = xyes)
-
+# Configure all the required libraries and modules for the linker
 dnl
 dnl  Check for GTK libraries
 dnl
@@ -121,12 +117,6 @@ gdk_target=`$PKG_CONFIG --variable=target gtk+-2.0`
 if test "$gdk_target" = "win32"; then
   AC_DEFINE(USE_WIN32, 1, Define to 1 if the windowing system is Windows.)
 fi
-
-dnl Checks for header files.
-AC_HEADER_STDC
-
-dnl Checks for typedefs, structures, and compiler characteristics.
-AC_C_CONST
 
 # Check for 'file' command
 AC_PATH_PROG(FILE_CMD, file)
@@ -154,9 +144,14 @@ echo "   * Win32:               $native_win32"
 echo "   * gdk_target:          $gdk_target"
 echo ""
 echo "---"
-echo "   * path:    $(MSYSTEM_PREFIX)/$(MSYSTEM_CHOST)"
+echo "   * path:    $MSYSTEM_PREFIX/$MSYSTEM_CHOST"
 echo "   * CFLAGS:              $CFLAGS"
 echo "   * LIBS:              $LIBS"
+echo "GTK_CFLAGS $GTK_CFLAGS"
+echo "GTK_LIBS $GTK_LIBS"
+echo "GTKGL_CFLAGS $GTKGL_CFLAGS"
+echo "GTKGL_LIBS $GTKGL_LIBS"
+echo 
 echo ""
 echo "---"
 echo "   * configure has Completed!"
